@@ -25,7 +25,13 @@ public class Trigramme {
                 String word = file.nextLine();
                 List<String> trigrammes = trigramme(word);
 
-                dictionary.put(word, trigrammes);
+                for(String tri : trigrammes){
+                    List<String> words = new ArrayList<>();
+                    words.add(word);
+                    if(!dictionary.containsKey(tri))
+                     dictionary.put(tri,words);
+                }
+
 
             }
             file.close();
@@ -56,7 +62,7 @@ public class Trigramme {
     public String toString() {
         String myString = " ";
         for(Map.Entry<String, List<String>> string : dictionary.entrySet()){
-            myString += "[" + string.getKey() + "," + string.getValue();
+            myString += "[" + string.getKey() + "," + string.getValue() +"] \n" ;
 
         }
         return myString;
