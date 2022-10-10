@@ -4,17 +4,10 @@ import java.util.*;
 
 public class Trigramme {
 
-    private Map<String, List<String>> dictionary;
-
-
-
+    private static Map<String, List<String>> dictionary;
 
     public Trigramme(File filePath) throws FileNotFoundException {
         fillTrigramme(filePath);
-    }
-
-    public Trigramme(Map<String, List<String>> dictionary) {
-        this.dictionary = dictionary;
     }
 
     public void fillTrigramme(File filePath) throws FileNotFoundException {
@@ -28,11 +21,11 @@ public class Trigramme {
                 for(String tri : trigrammes){
                     List<String> words = new ArrayList<>();
                     words.add(word);
-                    if(!dictionary.containsKey(tri))
+                    if(!dictionary.containsKey(tri)) //si le trigramme n'existe pas dans le dictionnaire, on l'ajoute et on ajoute le mot correspondant
                     {
                         dictionary.put(tri,words);
                     }
-                    else {
+                    else {                          //sinon on ajoute le mot à la liste appartenant au trigramme
                         dictionary.get(tri).add(word);
                     }
                 }
@@ -47,7 +40,7 @@ public class Trigramme {
 
     }
   // methode qui extrait les trigrammes d'un mot et les ajoute dans une liste
-    static List<String> trigramme(String word) {
+    public List<String> trigramme(String word) {
         List<String> trigramme = new ArrayList<>();
         if (word.length() >= 3) {
             while (word.length() > 3) {
@@ -70,5 +63,12 @@ public class Trigramme {
 
         }
         return myString.toString();
+    }
+
+    public static boolean checkCorrection(String word){
+        for(Map.Entry<String, List<String>> string : dictionary.entrySet()){
+            if(string.getValue().contains(word)) return true;
+        }
+        return false;
     }
 }
