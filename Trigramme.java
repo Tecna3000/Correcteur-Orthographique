@@ -7,8 +7,14 @@ public class Trigramme {
     private Map<String, List<String>> dictionary;
 
 
+
+
     public Trigramme(File filePath) throws FileNotFoundException {
         fillTrigramme(filePath);
+    }
+
+    public Trigramme(Map<String, List<String>> dictionary) {
+        this.dictionary = dictionary;
     }
 
     public void fillTrigramme(File filePath) throws FileNotFoundException {
@@ -29,7 +35,7 @@ public class Trigramme {
         }
 
     }
-
+  // methode qui extrait les trigramme d'un mot et les ajoute dans une liste
     static List<String> trigramme(String word) {
         List<String> trigramme = new ArrayList<>();
         if (word.length() >= 3) {
@@ -45,4 +51,14 @@ public class Trigramme {
         return trigramme;
     }
 
+
+    @Override
+    public String toString() {
+        String myString = " ";
+        for(Map.Entry<String, List<String>> string : dictionary.entrySet()){
+            myString += "[" + string.getKey() + "," + string.getValue();
+
+        }
+        return myString;
+    }
 }
