@@ -74,9 +74,19 @@ public class Trigramme {
         for (Map.Entry<String, List<String>> string : dictionary.entrySet()) {
             for (String string2 : trigrammes) {
                 if (Objects.equals(string.getKey(), string2))
-                    communTrigramme.add(String.valueOf(string.getValue()));
+                    communTrigramme.addAll(string.getValue());
+            }
+            for (String mot : communTrigramme){
+                int nbOfOccurrences = 0;
+                for(Map.Entry<String, List<String>> key : dictionary.entrySet()){
+                    if(key.getValue().contains(mot)){
+                        nbOfOccurrences++;
+                    }
+                    System.out.println(nbOfOccurrences);
+                }
             }
         }
+
         return communTrigramme;
     }
 }
