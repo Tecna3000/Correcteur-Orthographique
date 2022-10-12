@@ -18,14 +18,13 @@ public class Trigramme {
                 String word = file.nextLine();
                 List<String> trigrammes = trigramme(word);
 
-                for(String tri : trigrammes){
+                for (String tri : trigrammes) {
                     List<String> words = new ArrayList<>();
                     words.add(word);
-                    if(!dictionary.containsKey(tri)) //si le trigramme n'existe pas dans le dictionnaire, on l'ajoute et on ajoute le mot correspondant
+                    if (!dictionary.containsKey(tri)) //si le trigramme n'existe pas dans le dictionnaire, on l'ajoute et on ajoute le mot correspondant
                     {
-                        dictionary.put(tri,words);
-                    }
-                    else {                          //sinon on ajoute le mot à la liste appartenant au trigramme
+                        dictionary.put(tri, words);
+                    } else {                          //sinon on ajoute le mot à la liste appartenant au trigramme
                         dictionary.get(tri).add(word);
                     }
                 }
@@ -39,17 +38,18 @@ public class Trigramme {
         }
 
     }
-  // methode qui extrait les trigrammes d'un mot et les ajoute dans une liste
-    public List<String> trigramme(String word) {
+
+    // methode qui extrait les trigrammes d'un mot et les ajoute dans une liste
+    public static List<String> trigramme(String word) {
         List<String> trigramme = new ArrayList<>();
         if (word.length() >= 3) {
             while (word.length() > 3) {
-                        String str = word.substring(0,3);
-                        trigramme.add(str);
-                        word = word.substring(3);
+                String str = word.substring(0, 3);
+                trigramme.add(str);
+                word = word.substring(3);
 
-           }
-      }
+            }
+        }
         trigramme.add(word);
         return trigramme;
     }
@@ -58,17 +58,25 @@ public class Trigramme {
     @Override
     public String toString() {
         StringBuilder myString = new StringBuilder(" ");
-        for(Map.Entry<String, List<String>> string : dictionary.entrySet()){
+        for (Map.Entry<String, List<String>> string : dictionary.entrySet()) {
             myString.append("[").append(string.getKey()).append(",").append(string.getValue()).append("] \n\n");
 
         }
         return myString.toString();
     }
 
-    public static boolean checkCorrection(String word){
-        for(Map.Entry<String, List<String>> string : dictionary.entrySet()){
-            if(string.getValue().contains(word)) return true;
+    public static List<String> checkCorrection(String word) {
+        for (Map.Entry<String, List<String>> string : dictionary.entrySet()) {
+            if (string.getValue().contains(word)) break;
         }
-        return false;
+        List<String> trigrammes = trigramme(word);
+        List<String> communTrigramme = new ArrayList<>();
+        for (Map.Entry<String, List<String>> string : dictionary.entrySet()) {
+            for (String string2 : trigrammes) {
+                if (Objects.equals(string.getKey(), string2))
+                    communTrigramme.add(String.valueOf(string.getValue()));
+            }
+        }
+        return communTrigramme;
     }
 }
