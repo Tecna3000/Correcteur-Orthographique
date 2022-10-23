@@ -65,23 +65,27 @@ public class Trigramme {
         return myString.toString();
     }
 
-    public static Map<List<String>, Integer> checkCorrection(String word) {
+    public static Map<String, Integer> checkCorrection(String word) {
         for (Map.Entry<String, List<String>> string : dictionary.entrySet()) {
             if (string.getValue().contains(word)) break;
         }
         List<String> trigrammes = trigramme(word);
-        Map<List<String>,Integer> communTrigramme = new HashMap<>();
-        for (Map.Entry<String, List<String>> string : dictionary.entrySet()) {
-            for (String string2 : trigrammes) {
-                if (Objects.equals(string.getKey(), string2) && ! communTrigramme.containsValue(string))
-                    communTrigramme.put(string.getValue(),1);
-            }
-            nb++;
-            communTrigramme.
-            int nbOfOccurrences = 0;
+        Map<String,Integer> communTrigramme = new HashMap<>();
 
+        for (Map.Entry<String, List<String>> listEntry : dictionary.entrySet()) {
+            for (String string : trigrammes) {
+                if (Objects.equals(listEntry.getKey(), string)){
+                    System.out.println(listEntry.getKey());
+                    for(String string2 : listEntry.getValue()){
+                        if(!communTrigramme.containsKey(string2)) communTrigramme.put(string2,1);
+                        else {
+                            communTrigramme.put(string2, communTrigramme.get(string2) + 1);
+                        }
 
+                    }
+                }
         }
-        return  communTrigramme;
+     }
+        return communTrigramme;
     }
 }
