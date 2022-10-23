@@ -65,10 +65,11 @@ public class Trigramme {
         return myString.toString();
     }
 
-    public static Map<String, Integer> checkCorrection(String word) {
+    public static boolean checkCorrection(String word) {
         for (Map.Entry<String, List<String>> string : dictionary.entrySet()) {
-            if (string.getValue().contains(word)) break;
+            if (string.getValue().contains(word)) return true;
         }
+
         List<String> trigrammes = trigramme(word);
         Map<String,Integer> communTrigramme = new HashMap<>();
 
@@ -86,6 +87,7 @@ public class Trigramme {
                 }
         }
      }
-        return communTrigramme;
+        System.out.println(communTrigramme);
+        return false;
     }
 }
