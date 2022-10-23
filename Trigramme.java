@@ -69,6 +69,10 @@ public class Trigramme {
         for (Map.Entry<String, List<String>> string : dictionary.entrySet()) {
             if (string.getValue().contains(word)) return true;
         }
+        System.out.println(communTrigramme(word));
+        return false;
+    }
+    public static Map<String, Integer> communTrigramme(String word){
 
         List<String> trigrammes = trigramme(word);
         Map<String,Integer> communTrigramme = new HashMap<>();
@@ -85,9 +89,18 @@ public class Trigramme {
 
                     }
                 }
+          }
         }
-     }
-        System.out.println(communTrigramme);
-        return false;
+        return communTrigramme;
     }
+     public static int maxCommunTrigramme(String word){
+         Map<String, Integer>communTrigramme = communTrigramme(word);
+         int max= 1;
+         for (Map.Entry<String, Integer> string : communTrigramme.entrySet()) {
+             if( string.getValue()> max){
+                 max = string.getValue();
+             }
+         }
+         return max;
+     }
 }
