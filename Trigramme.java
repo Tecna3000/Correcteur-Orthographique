@@ -93,14 +93,17 @@ public class Trigramme {
         }
         return communTrigramme;
     }
-     public static int maxCommunTrigramme(String word){
+     public static Map<String, Integer> maxCommunTrigramme(String word){
          Map<String, Integer>communTrigramme = communTrigramme(word);
          int max= 1;
+         Map<String, Integer> maxCommunTrigramme = new HashMap<>();
          for (Map.Entry<String, Integer> string : communTrigramme.entrySet()) {
              if( string.getValue()> max){
                  max = string.getValue();
              }
+             maxCommunTrigramme.put(string.getKey(),max);
+
          }
-         return max;
+         return maxCommunTrigramme;
      }
 }

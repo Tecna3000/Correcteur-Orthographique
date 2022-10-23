@@ -8,7 +8,7 @@ public class Main {
      Trigramme t = new Trigramme(new File("/amuhome/r20031646/Bureau/Licence 3/Algo2/correcteur-tp2algo2/dico.txt"));
   //  System.out.println(t);
      //System.out.println(Trigramme.checkCorrection("abcèdert"));
- // System.out.println(Trigramme.maxCommunTrigramme("abcèdert"));
+  System.out.println(Trigramme.maxCommunTrigramme("abcèdert"));
     }
 
 
