@@ -1,12 +1,9 @@
-import java.util.Arrays;
-
-import static java.util.Collections.min;
 
 public class Levenshtein {
 
 
-    public static int Levenshtein(String word1, String word2) {
-         return distance(word1.toCharArray(),word2.toCharArray());
+    public static int distance (String word1, String word2) {
+        return distance(word1.toCharArray(),word2.toCharArray());
     }
 
     public static int distance(char[] word1, char[] word2){
