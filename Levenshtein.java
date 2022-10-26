@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 import static java.util.Collections.min;
 
 public class Levenshtein {
@@ -13,19 +15,21 @@ public class Levenshtein {
         int[][] distance = new int[length1 + 1][length2 + 1];
         int cost;
 
+
+
+
         for (int i = 0; i < length1 + 1 ; i++) //Initialiser la première colonne
             distance[i][0] = i;
 
         for (int i = 0 ; i < length2 + 1 ; i++)//et la première ligne
             distance[0][i] = i;
 
-        for(int i = 1 ; i <= length1 ; i++){
-            for(int j = 1 ; j <= length2 ; j++){
+        for(int i = 1 ; i < length1 +1; i++){
+            for(int j = 1 ; j < length2 +1 ; j++){
                 if (word1[i-1] == word2[j-1])
                     cost = 0;
                 else
                     cost = 1;
-
                 distance[i][j] = min(
                         distance[i-1][j] +1,
                         distance[i][j-1]+1,
@@ -33,8 +37,7 @@ public class Levenshtein {
 
             }
         }
-
-        return distance[length1][length1];
+        return distance[length1][length2];
 
 
     }

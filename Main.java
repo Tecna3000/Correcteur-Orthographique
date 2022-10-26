@@ -9,7 +9,7 @@ public class Main {
   //  System.out.println(t);
      //System.out.println(Trigramme.checkCorrection("abcèdert"));
    //System.out.println(Trigramme.maxCommunTrigramme("abcèdert"));
-      System.out.println( Levenshtein.Levenshtein ("niche","chien"));
+      System.out.println( Levenshtein.Levenshtein ("niche","chiens"));
 
     }
 
