@@ -99,15 +99,19 @@ public class Trigramme {
     //5. sélectionner les mots du dictionnaire qui ont le plus de trigrammes communs avec M
      public static Map<String, Integer> maxCommunTrigramme(String word){
          Map<String, Integer>communTrigramme = communTrigramme(word);
-         int max= 1;
          Map<String, Integer> maxCommunTrigramme = new HashMap<>();
+         int  max = 1;
          for (Map.Entry<String, Integer> string : communTrigramme.entrySet()) {
-             if( string.getValue()> max){
+             if( string.getValue()>= max){ maxCommunTrigramme.put(string.getKey(), string.getValue());
                  max = string.getValue();
              }
-             maxCommunTrigramme.put(string.getKey(),max);
+
+
 
          }
+//         for(int nb =100; nb< communTrigramme.size(); nb++){
+//             communTrigramme.remove(e);
+//         }
          return maxCommunTrigramme;
      }
 
@@ -118,7 +122,6 @@ public class Trigramme {
          int max = Integer.MAX_VALUE;
          for (Map.Entry<String, Integer> string : maxCommunTrigramme.entrySet()){
             int distance = Levenshtein.distance(word, String.valueOf(string));
-
             distances.put(string.getKey(),distance);
              list.add(string.getValue());
          }
