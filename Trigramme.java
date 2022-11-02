@@ -66,14 +66,14 @@ public class Trigramme {
     }
 
     //si le mot est dans le dictionnaire, il est correctement orthographié et le processus s’arrête
-    public static Map<String, Integer> checkCorrection(String word) {
+    public  Map<String, Integer> checkCorrection(String word) {
         for (Map.Entry<String, List<String>> string : dictionary.entrySet()) {
             if (string.getValue().contains(word)) break;
         }
         return communTrigramme(word) ;//Sinon :
     }
 
-    public static Map<String, Integer> communTrigramme(String word){
+    public Map<String, Integer> communTrigramme(String word){
 
         List<String> trigrammes = trigramme(word);//2. construire la liste des trigrammes du mot M
         Map<String,Integer> communTrigramme = new HashMap<>();
@@ -97,35 +97,35 @@ public class Trigramme {
     }
 
     //5. sélectionner les mots du dictionnaire qui ont le plus de trigrammes communs avec M
-     public static Map<String, Integer> maxCommunTrigramme(String word){
+     public  List<String> maxCommunTrigramme(String word){
          Map<String, Integer>communTrigramme = communTrigramme(word);
          Map<String, Integer> maxCommunTrigramme = new HashMap<>();
          int  max = 1;
-         for (Map.Entry<String, Integer> string : communTrigramme.entrySet()) {
-             if( string.getValue()>= max){ maxCommunTrigramme.put(string.getKey(), string.getValue());
+        List<String> sortedByCommonTrigram  = communTrigramme.keySet().stream()
+                .sorted((o1, o2) -> communTrigramme.get(o2)-communTrigramme.get(o1))
+                .toList().subList(0,100);
+        /* for (Map.Entry<String, Integer> string : communTrigramme.entrySet()) {
+             if( string.getValue()>=max){ maxCommunTrigramme.put(string.getKey(), string.getValue());
                  max = string.getValue();
              }
+*/
 
 
 
-         }
 //         for(int nb =100; nb< communTrigramme.size(); nb++){
 //             communTrigramme.remove(e);
 //         }
-         return maxCommunTrigramme;
+         return sortedByCommonTrigram;
      }
 
      public void closestWords(String word){
-         Map<String, Integer> maxCommunTrigramme = maxCommunTrigramme(word);
+         List<String> maxCommunTrigramme = maxCommunTrigramme(word);
          Map<String, Integer> distances = new HashMap<>();
-         List<Integer> list = new ArrayList<>();
          int max = Integer.MAX_VALUE;
-         for (Map.Entry<String, Integer> string : maxCommunTrigramme.entrySet()){
+         for (String string : maxCommunTrigramme){
             int distance = Levenshtein.distance(word, String.valueOf(string));
-            distances.put(string.getKey(),distance);
-             list.add(string.getValue());
+            distances.put(string,distance);
          }
-         Collections.sort(list);
 
      }
 }
