@@ -2,23 +2,23 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.*;
 
-public class Trigramme {
+public class Trigram {
 
     private static Map<String, List<String>> dictionary;
 
-    public Trigramme(File filePath) throws FileNotFoundException {
-        fillTrigramme(filePath);
+    public Trigram(File filePath) throws FileNotFoundException {
+        fillTrigram(filePath);
     }
 
-    public void fillTrigramme(File filePath) throws FileNotFoundException {
+    public void fillTrigram(File filePath) throws FileNotFoundException {
         Scanner file = new Scanner(filePath);
         dictionary = new HashMap<>();
         try {
             while (file.hasNextLine()) {
                 String word = file.nextLine();
-                List<String> trigrammes = trigramme(word);
+                List<String> trigrams = trigram(word);
 
-                for (String tri : trigrammes) {
+                for (String tri : trigrams) {
                     List<String> words = new ArrayList<>();
                     words.add(word);
                     if (!dictionary.containsKey(tri)) //si le trigramme n'existe pas dans le dictionnaire, on l'ajoute et on ajoute le mot correspondant
@@ -40,18 +40,18 @@ public class Trigramme {
     }
 
     // methode qui extrait les trigrammes d'un mot et les ajoute dans une liste
-    public static List<String> trigramme(String word) {
-        List<String> trigramme = new ArrayList<>();
+    public static List<String> trigram(String word) {
+        List<String> trigram = new ArrayList<>();
         if (word.length() >= 3) {
             while (word.length() > 3) {
                 String str = word.substring(0, 3);
-                trigramme.add(str);
+                trigram.add(str);
                 word = word.substring(3);
 
             }
         }
-        trigramme.add(word);
-        return trigramme;
+        trigram.add(word);
+        return trigram;
     }
 
 
@@ -70,62 +70,51 @@ public class Trigramme {
         for (Map.Entry<String, List<String>> string : dictionary.entrySet()) {
             if (string.getValue().contains(word)) break;
         }
-        return communTrigramme(word) ;//Sinon :
+        return commonTrigram(word) ;//Sinon :
     }
 
-    public Map<String, Integer> communTrigramme(String word){
+    public static Map<String, Integer> commonTrigram(String word){
 
-        List<String> trigrammes = trigramme(word);//2. construire la liste des trigrammes du mot M
-        Map<String,Integer> communTrigramme = new HashMap<>();
+        List<String> trigram = trigram(word);//2. construire la liste des trigrammes du mot M
+        Map<String,Integer> commonTrigram = new HashMap<>();
 
         // 3. Construire la liste L des mots qui ont au moins un trigramme commun avec M
         //4. pour chaque mot de L, calculer son nombre d’occurrences dans les listes de mots associées aux trigrammes de M
         for (Map.Entry<String, List<String>> listEntry : dictionary.entrySet()) {
-            for (String string : trigrammes) {
+            for (String string : trigram) {
                 if (Objects.equals(listEntry.getKey(), string)){
                     for(String string2 : listEntry.getValue()){
-                        if(!communTrigramme.containsKey(string2)) communTrigramme.put(string2,1);
+                        if(!commonTrigram.containsKey(string2)) commonTrigram.put(string2,1);
                         else {
-                            communTrigramme.put(string2, communTrigramme.get(string2) + 1);
+                            commonTrigram.put(string2, commonTrigram.get(string2) + 1);
                         }
 
                     }
                 }
           }
         }
-        return communTrigramme;
+        return commonTrigram;
     }
 
     //5. sélectionner les mots du dictionnaire qui ont le plus de trigrammes communs avec M
-     public  List<String> maxCommunTrigramme(String word){
-         Map<String, Integer>communTrigramme = communTrigramme(word);
-         Map<String, Integer> maxCommunTrigramme = new HashMap<>();
-         int  max = 1;
-        List<String> sortedByCommonTrigram  = communTrigramme.keySet().stream()
-                .sorted((o1, o2) -> communTrigramme.get(o2)-communTrigramme.get(o1))
-                .toList().subList(0,100);
-        /* for (Map.Entry<String, Integer> string : communTrigramme.entrySet()) {
-             if( string.getValue()>=max){ maxCommunTrigramme.put(string.getKey(), string.getValue());
-                 max = string.getValue();
-             }
-*/
-
-
-
-//         for(int nb =100; nb< communTrigramme.size(); nb++){
-//             communTrigramme.remove(e);
-//         }
-         return sortedByCommonTrigram;
+     public static List<String> maxCommonTrigram(String word){
+         Map<String, Integer>commonTrigram = commonTrigram(word);
+         return commonTrigram.keySet().stream()
+                 .sorted((o1, o2) -> commonTrigram.get(o2)-commonTrigram.get(o1))
+                 .toList().subList(0,100);
      }
 
-     public void closestWords(String word){
-         List<String> maxCommunTrigramme = maxCommunTrigramme(word);
+     public static List<String> closestWords(String word){
+         List<String> maxCommonTrigram = maxCommonTrigram(word);
          Map<String, Integer> distances = new HashMap<>();
-         int max = Integer.MAX_VALUE;
-         for (String string : maxCommunTrigramme){
+         int max = Integer.MIN_VALUE;
+         for (String string : maxCommonTrigram){
             int distance = Levenshtein.distance(word, String.valueOf(string));
             distances.put(string,distance);
          }
+         return distances.keySet().stream()
+                 .sorted((o1, o2) -> distances.get(o2)-distances.get(o1))
+                 .toList().subList(0,5);
+         }
 
-     }
 }
