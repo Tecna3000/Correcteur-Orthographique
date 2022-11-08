@@ -104,6 +104,9 @@ public class Trigram {
                  .toList().subList(0,100);
      }
 
+    //6. déterminer les cinq mots de la sélection les plus proches de M au sens de la distance
+    //d’édition. L’utilisateur choisira parmis ces 5 mots celui qui lui convient.
+
      public static List<String> closestWords(String word){
          List<String> maxCommonTrigram = maxCommonTrigram(word);
          Map<String, Integer> distances = new HashMap<>();
@@ -113,7 +116,7 @@ public class Trigram {
             distances.put(string,distance);
          }
          return distances.keySet().stream()
-                 .sorted((o1, o2) -> distances.get(o2)-distances.get(o1))
+                 .sorted(Comparator.comparingInt(distances::get))
                  .toList().subList(0,5);
          }
 

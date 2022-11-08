@@ -5,17 +5,17 @@ public class Main {
 
 
     public static void main(String[] args) throws FileNotFoundException {
-       // displayTrigramme();
-       //System.out.println(Trigramme.checkCorrection("abcèdert"));
-      System.out.println("The words that have more commun trigrammes with the word are: \n" + new Trigram(new File("/amuhome/r20031646/Bureau/Licence 3/Algo2/correcteur-tp2algo2/dico.txt")).maxCommonTrigram("chiev"));
+       // displayTrigram();
+       //System.out.println(Trigram.checkCorrection("abcèdert"));
+      System.out.println("The words that have more commun trigrammes with the word are: \n" + new Trigram(new File("/amuhome/r20031646/Bureau/Licence 3/Algo2/correcteur-tp2algo2/dico.txt")).maxCommonTrigram("addresse"));
       //System.out.println("\nThe distance between the two words is: " + Levenshtein.distance("niche","chiens"));
-      System.out.println("\n the closest 5 wordds are" + Trigram.closestWords("chien"));
+      System.out.println("\n the closest 5 wordds are" + Trigram.closestWords("addresse"));
 
     }
 
-    public static void displayTrigramme() throws FileNotFoundException {
-        Trigram trigramme = new Trigram(new File("/amuhome/r20031646/Bureau/Licence 3/Algo2/correcteur-tp2algo2/dico.txt"));
-        System.out.println("------------ Dictionnary--------------------\n" + trigramme);
+    public static void displayTrigram() throws FileNotFoundException {
+        Trigram trigram = new Trigram(new File("/amuhome/r20031646/Bureau/Licence 3/Algo2/correcteur-tp2algo2/dico.txt"));
+        System.out.println("------------ Dictionnary--------------------\n" + trigram);
     }
 
 
