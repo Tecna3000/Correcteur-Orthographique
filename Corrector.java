@@ -13,7 +13,7 @@ public class Corrector {
                 return true;
             }
         }
-        System.out.println("the word ("+ word + ") is not correct, the five closests words are :" + closestWords(word));
+        System.out.println("the word ("+ word + ") is not correct, the five closest words are :" + closestWords(word));
         return false;
     }
 
