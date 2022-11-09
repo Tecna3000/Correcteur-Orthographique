@@ -10,10 +10,10 @@ public class Corrector {
         for (Map.Entry<String, List<String>> string : myTrigram.dictionary.entrySet()) {
             if (string.getValue().contains(word)){
                 System.out.println("The word is correct");
-            } return true;
-
+                return true;
+            }
         }
-        System.out.println(closestWords(word));
+        System.out.println("the word ("+ word + ") is not correct, the five closests words are :" + closestWords(word));
         return false;
     }
 
@@ -54,7 +54,6 @@ public class Corrector {
     public static List<String> closestWords(String word){
         List<String> maxCommonTrigram = maxCommonTrigram(word);
         Map<String, Integer> distances = new HashMap<>();
-        int max = Integer.MIN_VALUE;
         for (String string : maxCommonTrigram){
             int distance = Levenshtein.distance(word, String.valueOf(string));
             distances.put(string,distance);

@@ -26,13 +26,12 @@ correct();
 
     public static void correct() throws FileNotFoundException {
         Scanner file = new Scanner((new File("fautes.txt")));
+        Trigram trigram = new Trigram(new File("dico.txt"));
+        Corrector co = new Corrector(trigram);
         try {
             while (file.hasNextLine()) {
                 String word = file.nextLine();
-                Trigram trigram = new Trigram(new File("dico.txt"));
-                Corrector co = new Corrector(trigram);
                 co.isCorrect(word);
-
 
             }
             file.close();
@@ -41,6 +40,5 @@ correct();
             e.printStackTrace();
         }
     }
-
 
 }
