@@ -43,9 +43,18 @@ public class Corrector {
     //5. sélectionner les mots du dictionnaire qui ont le plus de trigrammes communs avec M
     public static List<String> maxCommonTrigram(String word){
         Map<String, Integer>commonTrigram = commonTrigram(word);
-        return commonTrigram.keySet().stream()
-                .sorted((o1, o2) -> commonTrigram.get(o2)-commonTrigram.get(o1))
-                .toList().subList(0,100);
+        List<String> common100 = new ArrayList<>();
+        commonTrigram.keySet().stream()
+                .sorted((o1, o2) -> commonTrigram.get(o2)-commonTrigram.get(o1)).toList();
+        for(Map.Entry<String, Integer> entry : commonTrigram.entrySet()){
+            int n=0;
+            if (n <100){
+                common100.add(entry.getKey());
+              n++;
+
+            }
+        }
+        return common100;
     }
 
     //6. déterminer les cinq mots de la sélection les plus proches de M au sens de la distance
