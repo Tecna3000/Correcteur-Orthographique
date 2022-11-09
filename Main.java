@@ -9,19 +9,19 @@ public class Main {
 
 
     public static void main(String[] args) throws FileNotFoundException {
-       // displayTrigram();
-
-correct();
-//
-//      System.out.println("The words that have more common trigrams with the word are: \n" + Trigram.maxCommonTrigram("addresse"));
-//      //System.out.println("\nThe distance between the two words is: " + Levenshtein.distance("niche","chiens"));
-//      System.out.println("\n the closest 5 words are" + Trigram.closestWords("addresse"));
+        double startTime1 = System.nanoTime();
+        displayTrigram();
+        double trigramTime = (System.nanoTime() - startTime1)/ 1000000000;
+        double startTime2 = System.nanoTime();
+        correct();
+        double correctionTime = ((System.nanoTime() - startTime2)/ 1000000000) - trigramTime;
+        System.out.println("Correction :" + correctionTime +"s");
 
     }
 
     public static void displayTrigram() throws FileNotFoundException {
         Trigram trigram = new Trigram(new File("dico.txt"));
-        System.out.println("------------ Dictionnary--------------------\n" + trigram);
+     //   System.out.println("------------ Dictionnary--------------------\n" + trigram);
     }
 
     public static void correct() throws FileNotFoundException {
