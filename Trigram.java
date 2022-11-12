@@ -64,7 +64,4 @@ public class Trigram {
         }
         return myString.toString();
     }
-
-
-
 }

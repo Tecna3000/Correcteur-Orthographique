@@ -1,9 +1,6 @@
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class Main {
 
@@ -12,8 +9,8 @@ public class Main {
         double startTime = System.nanoTime();
         displayTrigram();
         double trigramTime = (System.nanoTime() - startTime)/ 1000000000;
-        System.out.println("Time to build trigram is: "+ trigramTime + "s");
         correct();
+        System.out.println("\nTime to build trigram is: "+ trigramTime + "s");
     }
 
     public static void displayTrigram() throws FileNotFoundException {
@@ -34,7 +31,7 @@ public class Main {
             }
             file.close();
             double correctionTime = ((System.nanoTime() - startTime)/ 1000000000);
-            System.out.println("Correction time:" + correctionTime +"s");
+            System.out.println("\nCorrection time:" + correctionTime +"s");
         } catch (Exception e) {
             e.printStackTrace();
         }
